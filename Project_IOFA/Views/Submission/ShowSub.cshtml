@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "_LayoutStudentUser";
+}
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Recent Competition</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-white" href="#">Competition</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">Contest entered</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="section-title text-center">
+    <h1 class="display-5 mb-5">List of participated competitions</h1>
+</div>
+<table class="table table-hover">
+<thead>
+    <tr class="text-center">
+        <th>Name ArtWork</th>
+        <th>Images</th>
+        <th>Submission time</th>
+        <th>Status</th>
+        <th>Fundtion</th>
+    </tr>
+</thead>
+<tbody>
+   
+        @foreach (var sub in ViewBag.Sub)
+        {
+            <tr class="text-center">
+                <td>@sub.Artwork?.ArtworkName</td>
+                <td><img src="@sub.Artwork?.FileUrl" width="60px"/></td>
+                <td>@sub.SubmissionDate</td>
+                <td>@sub.Status </td>
+                <td>
+                    <label class="btn btn-danger" style="padding:8px;">
+                        <a style="color:white" asp-controller="Submission" asp-action="DropSub" asp-route-id="@sub.SubmissionId" onclick="confirmDelete(@sub.SubmissionId)">Delete</a>
+                    </label>
+                </td>
+
+            </tr>
+        }
+        
+    
+</tbody>
+</table>
+
+@section scripts {
+
+    <script>
+        function confirmDelete(id) {
+            if (confirm("Are you sure you want to delete?")) {
+                $.ajax({
+                    url: '@Url.Action("DropSub", "Submission")',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("An error occurred while deleting data.");
+                    }
+                });
+            }
+        }
+
+    </script>
+}
