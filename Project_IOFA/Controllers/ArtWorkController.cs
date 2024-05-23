@@ -12,27 +12,32 @@ public class ArtWorkController : Controller
         _artService = artService;
         _accountStudentService = accountStudentService;
     }
-    public IActionResult ShowArtWork(Student model)
+    public IActionResult ShowArtWork()
     {
-
         if (HttpContext.Session.GetString("LoggedInUser") == null)
         {
             ViewBag.checklogin = "";
+            return View();
+        }
+
+        string emailLogined = HttpContext.Session.GetString("LoggedInUser");
+        ViewBag.checklogin = emailLogined;
+        ViewBag.stulogin = HttpContext.Session.GetString("LoggedInUser");
+        var student = _accountStudentService.getmemberbyusername(emailLogined);
+        ViewBag.stulogined = student;
+
+        if (student != null)
+        {
+            ViewBag.art = _artService.GetArtByStudentId(student.StudentId);
         }
         else
         {
-            string? emaillogined = HttpContext.Session.GetString("LoggedInUser");
-            ViewBag.checklogin = emaillogined;
-            if (emaillogined != null)
-            {
-                ViewBag.stulogined = _accountStudentService.getmemberbyusername(emaillogined);
-            }
+            ViewBag.art = new List<Artwork>();
         }
-        ViewBag.stulogin = HttpContext.Session.GetString("LoggedInUser");
-        ViewBag.art = _artService.GetlistArt();
-        
+
         return View();
     }
+
     //[Route("~/")]
     public IActionResult ShowAddArt()
     {

@@ -9,4 +9,5 @@ public interface IArtworkService
     public List<Student> GetStu();
     public bool DropArt(int id);
     public Student? GStuBE(string email);
+    public List<Artwork> GetArtByStudentId(int studentId);
 }

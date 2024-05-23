@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MailKit.Net.Smtp;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using NuGet.DependencyResolver;
 using ProjectSem3.IService;
@@ -63,5 +64,21 @@ public class AccountStudentDao : IAccountStudentService
             return false;
         }
     }
+    //public void SendEmail(string fromEmail, string toEmail, string subject, string body)
+    //{
+    //    var emailMessage = new MimeMessage();
+    //    emailMessage.From.Add(new MailboxAddress("", fromEmail));
+    //    emailMessage.To.Add(new MailboxAddress("", toEmail));
+    //    emailMessage.Subject = subject;
+    //    emailMessage.Body = new TextPart("html") { Text = body };
+
+    //    using (var client = new SmtpClient())
+    //    {
+    //        client.Connect(_configuration["EmailSettings:SmtpServer"], int.Parse(_configuration["EmailSettings:SmtpPort"]), true);
+    //        client.Authenticate(_configuration["EmailSettings:SenderEmail"], _configuration["EmailSettings:SenderPassword"]);
+    //        client.Send(emailMessage);
+    //        client.Disconnect(true);
+    //    }
+    //}
 
 }

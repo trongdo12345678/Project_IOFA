@@ -11,7 +11,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddSession();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 builder.Services.AddDbContext<IofaContext>(options =>
 {
@@ -21,6 +26,7 @@ builder.Services.AddScoped<ISubmissionService, SubmissionDao>();
 builder.Services.AddScoped<IArtworkService, ArtworkDao>();
 builder.Services.AddScoped<IAccountStudentService, AccountStudentDao>();
 builder.Services.AddScoped<ICompetitionService, CompetitionDao>();
+builder.Services.AddScoped<IExhibitionService, ExhibitionDao>();
 
 var app = builder.Build();
 

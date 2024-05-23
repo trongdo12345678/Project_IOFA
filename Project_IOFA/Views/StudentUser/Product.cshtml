@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "_LayoutStudentUser";
+}
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Project</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Project</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Projects Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="section-title text-center">
+            <h1 class="display-5 mb-5">Featured contests</h1>
+        </div>
+        <div class="row g-4">
+            @foreach (var sub in ViewBag.Sub)
+            {
+                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="@sub.Artwork?.FileUrl" alt="">
+                        </div>
+                        <div class="p-4 text-center border border-5 border-light border-top-0">
+                            <h4 class="mb-3">@sub.Artwork?.ArtworkName</h4>
+                            <h4 class="mb-3">@sub.Competition?.CompetitionName</h4>
+                            <p>@sub.Award</p>
+                            <div>
+                                <label style="padding:10px;background-color:#AB7442;padding:13px">
+                                    <a style="color:white;" asp-controller="StudentUser" asp-action="DetailPro" asp-route-id="@sub.SubmissionId">Read More</a>
+                                </label>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

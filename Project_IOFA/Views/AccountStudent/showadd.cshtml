@@ -1,0 +1,9 @@
+﻿@model ProjectSem3.Models.Student
+@{
+    Layout = "_LayoutStudentUser";
+}
+<form asp-controller="AccountStudent" asp-action="Addstudent" method="post">
+    <input type="text" asp-for="Email" />
+    <input type="text" asp-for="Password" />
+    <button type="submit">add</button>
+</form>

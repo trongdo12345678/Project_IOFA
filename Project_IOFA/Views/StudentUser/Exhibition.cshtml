@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "_LayoutStudentUser";
+}
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Exhibition</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                @foreach (var ex in ViewBag.Ex)
+                {
+                    <li class="breadcrumb-item"><a class="text-white" href="#">@ex.ExhibitionName</a></li>
+                }
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="section-title text-center">
+            <h1 class="display-5 mb-5">Exhibition</h1>
+        </div>
+        <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="col-12 text-center">
+                <ul class="list-inline mb-5" id="portfolio-flters">
+                    @foreach (var ex in ViewBag.Ex)
+                    {
+                        <li class="mx-2" data-filter="*">@ex.ExhibitionName</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="row g-4 portfolio-container">
+            @foreach (var a in ViewBag.Sub)
+            {
+                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.5s" style=" left: 759px; top: 0px; visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                    <div class="rounded overflow-hidden">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="@a.Artwork?.FileUrl" alt="">
+                            <div class="portfolio-overlay">
+                                <a class="btn btn-square btn-outline-light mx-1" href="@a.Artwork?.FileUrl" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-outline-light mx-1" href=""><i class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="border border-5 border-light border-top-0 p-4">
+                            <p class="text-primary fw-medium mb-2">@a.Artwork?.ArtworkName</p>
+                            <h5 class="lh-base mb-0">
+                                @a.Award
+                            </h5>
+                            <h6 class="lh-base mb-0">
+                                @a.Competition?.CompetitionName <span style="margin-left:50px">@a.Exhibition?.ExhibitionName</span>
+                            </h6>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

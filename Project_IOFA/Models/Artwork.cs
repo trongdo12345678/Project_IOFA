@@ -18,6 +18,8 @@ public partial class Artwork
     [Required]
     public string? Descritption { get; set; }
 
+    public decimal? Price { get; set; }
+
     public DateTime? DayPost { get; set; }
 
     public virtual Student? Student { get; set; }

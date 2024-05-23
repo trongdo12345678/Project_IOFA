@@ -81,6 +81,7 @@
                 <a asp-controller="StudentUser" asp-action="Index" class="nav-item nav-link active">Home</a>
                 <a asp-controller="StudentUser" asp-action="About" class="nav-item nav-link">About</a>
                 <a asp-controller="Competition" asp-action="ShowCompe" class="nav-item nav-link">Competition</a>
+                <a asp-controller="StudentUser" asp-action="Product" class="nav-item nav-link">Product</a>
                 @if (ViewBag.checklogin == "")
                 {
                     <a asp-controller="AccountStudent" asp-action="LoginStuWeb" class="nav-item nav-link">ArtWork</a>
@@ -91,14 +92,23 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu fade-up m-0">
-                        <a asp-controller="StudentUser" asp-action="Feature" class="dropdown-item">Feature</a>
+                        <a asp-controller="StudentUser" asp-action="Exhibition" class="dropdown-item">Exhibition</a>
                         <a asp-controller="StudentUser" asp-action="Teacher" class="dropdown-item">Teacher</a>
                         <a asp-controller="StudentUser" asp-action="Evaluate" class="dropdown-item">Evaluate</a>
                     </div>
                 </div>
                 <a asp-controller="StudentUser" asp-action="Contact" class="nav-item nav-link">Contact</a>
             </div>
-            <a asp-controller="AccountStudent" asp-action="LoginStuWeb" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login Student<i class="fa fa-arrow-right ms-3"></i></a>
+            @if (ViewBag.checklogin == "")
+            {
+                <a asp-controller="AccountStudent" asp-action="LoginStuWeb" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login Student<i class="fa fa-arrow-right ms-3"></i></a>
+            }
+            else
+            {
+                <a asp-controller="AccountStudent" asp-action="LoginStuWeb" class="btn btn-danger py-4 px-lg-5 d-none d-lg-block">LogOut Student<i class="fa fa-arrow-right ms-3"></i></a>
+            }
+           
+            
         </div>
     </nav>
     <!-- Navbar End -->

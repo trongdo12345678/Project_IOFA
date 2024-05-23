@@ -20,31 +20,12 @@ public class SubmissionController : Controller
     [HttpPost]
     public IActionResult UploadExamk(Submission sub, string compeid)
     {
-        try
-        {
-            TempData["projectiddonate"] = compeid;
-            sub.CompetitionId = Convert.ToInt32(TempData["projectiddonate"]);
-            sub.SubmissionDate = DateTime.Now;
-            string errorMessage;
-            bool result = _subService.StuSendTeacher(sub, out errorMessage);
-
-            if (result)
-            {
-                // Nếu thành công, chuyển hướng tới trang thành công
-                return RedirectToAction("ShowSub");
-            }
-            else
-            {
-                TempData["ErrorMessage"] = errorMessage;
-                return RedirectToAction("success");
-            }
-        }
-        catch (Exception ex)
-        {
-            // Xử lý ngoại lệ nếu có
-            TempData["ErrorMessage"] = $"An error occurred: {ex.Message}";
-            return RedirectToAction("error");
-        }
+        TempData["projectiddonate"] = compeid;
+        sub.CompetitionId = Convert.ToInt32(TempData["projectiddonate"]);
+        sub.SubmissionDate = DateTime.Now;
+        bool result = _subService.StuSendTeacher(sub);
+        return RedirectToAction("ShowSub");
+       
     }
 
     public IActionResult ShowSub()

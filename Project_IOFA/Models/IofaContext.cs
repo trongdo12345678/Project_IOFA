@@ -67,6 +67,7 @@ public partial class IofaContext : DbContext
             entity.Property(e => e.FileUrl)
                 .HasColumnType("text")
                 .HasColumnName("FileURL");
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Status)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -130,12 +131,32 @@ public partial class IofaContext : DbContext
             entity.HasKey(e => e.StudentId).HasName("PK__Students__32C52A796D55C792");
 
             entity.Property(e => e.StudentId).HasColumnName("StudentID");
+            entity.Property(e => e.Address)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.ClassId).HasColumnName("ClassID");
+            entity.Property(e => e.Dob).HasColumnType("datetime");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.EnrollmentDate)
+                .HasColumnType("datetime")
+                .HasColumnName("Enrollment_Date");
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("First_Name");
+            entity.Property(e => e.Gender)
+                .HasMaxLength(15)
+                .IsUnicode(false);
+            entity.Property(e => e.LastName)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("Last_Name");
             entity.Property(e => e.Password).HasColumnType("text");
-            entity.Property(e => e.StudentName).HasMaxLength(100);
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.Class).WithMany(p => p.Students)
                 .HasForeignKey(d => d.ClassId)
@@ -177,8 +198,24 @@ public partial class IofaContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("First_Name");
+            entity.Property(e => e.Gender)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.HireDate)
+                .HasColumnType("datetime")
+                .HasColumnName("Hire_Date");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("Last_Name");
             entity.Property(e => e.Password).HasColumnType("text");
-            entity.Property(e => e.TeacherName).HasMaxLength(100);
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false);
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -10,57 +10,35 @@ public class SubmissionDao : ISubmissionService
     {
         _context = context;
     }
-    public bool StuSendTeacher(Submission sub, out string errorMessage)
+    public bool StuSendTeacher(Submission sub)
     {
-        errorMessage = string.Empty;
-
-        try
+        if (sub == null)
         {
-            if (sub == null)
-            {
-                errorMessage = "Submission is null.";
-                return false;
-            }
-
-            var artwork = _context.Artworks.SingleOrDefault(a => a.ArtworkId == sub.ArtworkId);
-            if (artwork == null)
-            {
-                errorMessage = "Artwork not found.";
-                return false;
-            }
-
-            if (artwork.Status == "Submitted")
-            {
-                errorMessage = "This exam has been submitted.";
-                return false;
-            }
-
-            // Cập nhật trạng thái của artwork thành "Submitted"
-            artwork.Status = "Submitted";
-
-            var newSubmission = new Submission
-            {
-                Award = null,
-                CompetitionId = sub.CompetitionId,
-                Status = "Waiting for grading",
-                ArtworkId = sub.ArtworkId,
-                Mark = null,
-                SubmissionDate = sub.SubmissionDate,
-                ExhibitionId = null,
-            };
-
-            _context.Submissions.Add(newSubmission);
-
-            bool submissionAdded = _context.SaveChanges() > 0;
-
-            return submissionAdded;
-        }
-        catch (Exception ex)
-        {
-            errorMessage = $"Error in StuSendTeacher: {ex.Message}";
             return false;
         }
+
+        var artwork = _context.Artworks.SingleOrDefault(a => a.ArtworkId == sub.ArtworkId);
+        if (artwork == null)
+        {
+            return false;
+        }
+
+        var newSubmission = new Submission
+        {
+            Award = null,
+            CompetitionId = sub.CompetitionId,
+            Status = "Waiting for grading",
+            ArtworkId = sub.ArtworkId,
+            Mark = null,
+            SubmissionDate = sub.SubmissionDate,
+            ExhibitionId = null,
+        };
+
+        _context.Submissions.Add(newSubmission);
+
+        return _context.SaveChanges() > 0;
     }
+
 
     public List<Exhibition> GetEx()
     {
@@ -101,6 +79,8 @@ public class SubmissionDao : ISubmissionService
             var sub = _context.Submissions
                 .OrderByDescending(f => f.SubmissionId)
                 .Include(f => f.Artwork)
+                .Include (f => f.Competition)
+                .Include(f=> f.Exhibition)
                 .ToList();
 
             return sub;
@@ -125,6 +105,23 @@ public class SubmissionDao : ISubmissionService
         catch (Exception)
         {
             return false;
+        }
+    }
+    public Submission GetSub(int id)
+    {
+        try
+        {
+            var sub = _context.Submissions
+                .Include(p => p.Artwork)
+                .Include(p => p.Competition)
+                .Include(p => p.Exhibition)
+                .FirstOrDefault(p => p.SubmissionId == id);
+            if (sub != null) return sub;
+            return new Submission();
+        }
+        catch (Exception)
+        {
+            return new Submission();
         }
     }
 }

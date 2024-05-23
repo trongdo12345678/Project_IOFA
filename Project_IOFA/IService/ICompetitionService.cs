@@ -5,4 +5,5 @@ namespace ProjectSem3.IService;
 public interface ICompetitionService
 {
     public List<Competition> GetlistCompe();
+    public Competition GetCompe(int id);
 }

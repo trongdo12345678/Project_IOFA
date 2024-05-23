@@ -1,0 +1,30 @@
+﻿
+@{
+}
+<h2>Request OTP</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Error
+    </div>
+}
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
+<form method="post" asp-controller="AccountStudent" asp-action="RequestOTP">
+    <div class="form-group">
+        <label for="fromEmail">From Email:</label>
+        <input type="email" class="form-control" id="fromEmail" name="fromEmail" required>
+    </div>
+    <div class="form-group">
+        <label for="userEmail">User Email:</label>
+        <input type="email" class="form-control" id="userEmail" name="userEmail" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Send OTP</button>
+</form>

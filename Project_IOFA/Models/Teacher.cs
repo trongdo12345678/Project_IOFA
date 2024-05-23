@@ -11,7 +11,15 @@ public partial class Teacher
 
     public string? Password { get; set; }
 
-    public string TeacherName { get; set; } = null!;
+    public DateTime? HireDate { get; set; }
+
+    public string? Status { get; set; }
+
+    public string? LastName { get; set; }
+
+    public string? FirstName { get; set; }
+
+    public string? Gender { get; set; }
 
     public virtual ICollection<Competition> Competitions { get; set; } = new List<Competition>();
 }

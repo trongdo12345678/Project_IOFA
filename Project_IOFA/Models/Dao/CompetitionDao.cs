@@ -10,6 +10,21 @@ public class CompetitionDao : ICompetitionService
     {
         _context = context;
     }
+    public Competition GetCompe(int id)
+    {
+        try
+        {
+            var compe = _context.Competitions
+                .Include(p => p.Teacher)
+                .FirstOrDefault(p => p.CompetitionId == id);
+            if (compe != null) return compe;
+            return new Competition();
+        }
+        catch (Exception)
+        {
+            return new Competition();
+        }
+    }
     public List<Competition> GetlistCompe()
     {
         try

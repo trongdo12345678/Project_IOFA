@@ -72,6 +72,19 @@ public class ArtworkDao : IArtworkService
             return false;
         }
     }
+    public List<Artwork> GetArtByStudentId(int studentId)
+    {
+        try
+        {
+            var artList = _context.Artworks.Where(a => a.StudentId == studentId).ToList();
+            return artList;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error occurred while fetching art for student with ID {studentId}: {ex.Message}");
+            return new List<Artwork>(); 
+        }
+    }
 
     public Student? GStuBE(string email)
     {
